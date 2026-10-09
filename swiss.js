@@ -156,7 +156,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb&&lb.clas
     return {p:p,need:need,list:list,rec:ok[0]||null};
   }
   function tagrow(m){return '<span class="rtag">'+m.r+'</span>'+(m.aus?'<span class="aus">Australian made</span>':'')}
-  function kind(m){return m.r==='Plug-in'?'gr':m.r==='Premium'?'ar':'ph'}
+  function kind(m){return m.r==='Plug-in'?'gr':m.r==='Premium'?'ar':m.r==='Viessmann'?'vz':'ph'}
   function head(m,b){return '<div class="hd">'+TH(m.n,kind(m))+'<div>'+(b?'<span class="tag-best">Our pick</span>':'')+'<h3>'+m.n+'</h3><p class="sp2">'+tagrow(m)+'</p></div></div>'}
   function visible(r){
     if(showAll)return r.list;
