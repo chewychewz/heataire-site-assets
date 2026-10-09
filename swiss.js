@@ -4,6 +4,8 @@
 /* Page routing: each Webflow page sets window.SW_PAGE to 'pool' or 'hw' before this loads. */
 var SW_URLS={pool:'/pool-heat-pumps-swiss',hw:'/hot-water-heat-pumps-swiss'};
 window.SW_PAGE=window.SW_PAGE||'pool';
+/* Pool photo kind: Oasis iX9 to iX24 share one photo, the rest show a placeholder for now. */
+window.pk=function(m){return /^iX(9|13|19|24)$/.test(m.n)?'ox':'ph'};
 
 window.TH=function(name,kind,size){return '<button type="button" class="th'+(size?' '+size:'')+'" data-name="'+name+'" data-kind="'+kind+'" aria-label="View larger photo of '+name+'"></button>'};
 (function(){var lb,d,c,last;
@@ -62,7 +64,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb&&lb.clas
       var f=fit(m.c/r.need),b=m===r.rec;
       var head=b?'Our pick':f.w, cls=b?'ok':f.cls;
       var line=b?recText(r):why(m,f,r.need);
-      return '<div class="ra'+(b?' best':'')+'"><div class="hd">'+TH(m.n,'ph')+'<div>'+(b?'<span class="tag-best">Our pick</span>':'')+'<h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p></div></div><div><p class="vd '+cls+'">'+head+'</p><p class="sp2" style="margin-top:6px">'+line+'</p></div>'+specs(m)+'</div>';
+      return '<div class="ra'+(b?' best':'')+'"><div class="hd">'+TH(m.n,pk(m))+'<div>'+(b?'<span class="tag-best">Our pick</span>':'')+'<h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p></div></div><div><p class="vd '+cls+'">'+head+'</p><p class="sp2" style="margin-top:6px">'+line+'</p></div>'+specs(m)+'</div>';
     }).join('');
   }
   function rowsB(r){
@@ -70,13 +72,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb&&lb.clas
     var head='<div class="bh"><span></span><div class="needlab"><span style="left:'+pct+'%">Your pool needs '+r.need.toFixed(0)+' kW</span></div><span></span></div>';
     return head+MODELS.map(function(m){
       var f=fit(m.c/r.need),b=m===r.rec;
-      return '<div class="bar2'+(b?' best':'')+'"><div class="hd">'+TH(m.n,'ph','sm')+'<h3>'+m.n+'</h3></div><div class="track"><div class="fill'+(f.k==='small'?' short':'')+(b?' pick':'')+'" style="width:'+(m.c/MAX*100)+'%"></div><div class="need" style="left:'+pct+'%"></div></div><div class="r2b"><b class="'+(f.k==='small'?'bad':'')+'">'+(b?'Our pick':f.w)+'</b><span>'+m.c.toFixed(1)+' kW cool weather</span></div></div>';
+      return '<div class="bar2'+(b?' best':'')+'"><div class="hd">'+TH(m.n,pk(m),'sm')+'<h3>'+m.n+'</h3></div><div class="track"><div class="fill'+(f.k==='small'?' short':'')+(b?' pick':'')+'" style="width:'+(m.c/MAX*100)+'%"></div><div class="need" style="left:'+pct+'%"></div></div><div class="r2b"><b class="'+(f.k==='small'?'bad':'')+'">'+(b?'Our pick':f.w)+'</b><span>'+m.c.toFixed(1)+' kW cool weather</span></div></div>';
     }).join('')+(r.stepped?'<p class="sp2" style="margin-top:14px">'+recText(r)+'</p>':'');
   }
   function cardC(m,r,label,cls){
     var f=fit(m.c/r.need);
     var line=(cls==='hero2')?recText(r):why(m,f,r.need);
-    return '<div class="cardc '+cls+'">'+TH(m.n,'ph',cls==='hero2'?'lg':'')+'<span class="lbl">'+label+'</span><h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p><p class="'+(cls==='hero2'?'':'sp2')+'" style="font-size:'+(cls==='hero2'?'18px':'13px')+'">'+line+'</p>'+specs(m)+'</div>';
+    return '<div class="cardc '+cls+'">'+TH(m.n,pk(m),cls==='hero2'?'lg':'')+'<span class="lbl">'+label+'</span><h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p><p class="'+(cls==='hero2'?'':'sp2')+'" style="font-size:'+(cls==='hero2'?'18px':'13px')+'">'+line+'</p>'+specs(m)+'</div>';
   }
   function viewC(r){
     var list=MODELS.filter(function(m){return !m.t||m===r.rec});
@@ -84,7 +86,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'&&lb&&lb.clas
     return '<div class="cc">'+(prev?cardC(prev,r,r.stepped&&prev===r.best?'Would just cover it':'A size down','small'):'<div></div>')+cardC(r.rec,r,'We would put in','hero2')+(next?cardC(next,r,'A size up','small'):'<div></div>')+'</div>';
   }
   function neutral(){
-    return MODELS.map(function(m){return '<div class="ra"><div class="hd">'+TH(m.n,'ph')+'<div><h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p></div></div><div></div>'+specs(m)+'</div>'}).join('');
+    return MODELS.map(function(m){return '<div class="ra"><div class="hd">'+TH(m.n,pk(m))+'<div><h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p></div></div><div></div>'+specs(m)+'</div>'}).join('');
   }
   function render(){
     vh.textContent=HELP[variant];
