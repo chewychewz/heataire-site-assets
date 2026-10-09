@@ -285,3 +285,5 @@ main[hidden]{display:none}
 @media (max-width:860px){.th{width:48px;height:48px}.hd{gap:12px}}
 
 #sw-root{display:block}
+
+.tel a,.call2 a{color:inherit;text-decoration:none}.tel a:hover,.call2 a:hover{text-decoration:underline}
