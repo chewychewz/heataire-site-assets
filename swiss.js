@@ -4,8 +4,8 @@
 /* Page routing: each Webflow page sets window.SW_PAGE to 'pool' or 'hw' before this loads. */
 var SW_URLS={pool:'/pool-heat-pumps-swiss',hw:'/hot-water-heat-pumps-swiss'};
 window.SW_PAGE=window.SW_PAGE||'pool';
-/* Pool photo kind: Oasis iX9 to iX24 share one photo, the rest show a placeholder for now. */
-window.pk=function(m){return /^iX(9|13|19|24)$/.test(m.n)?'ox':'ph'};
+/* Pool photo kind: Oasis iX9 to iX24 share one photo, iX28 to iX36T share the larger twin-fan photo. */
+window.pk=function(m){return /^iX(9|13|19|24)$/.test(m.n)?'ox':/^iX(28|28T|36T)$/.test(m.n)?'ox2':'ph'};
 
 window.TH=function(name,kind,size){return '<button type="button" class="th'+(size?' '+size:'')+'" data-name="'+name+'" data-kind="'+kind+'" aria-label="View larger photo of '+name+'"></button>'};
 (function(){var lb,d,c,last;
