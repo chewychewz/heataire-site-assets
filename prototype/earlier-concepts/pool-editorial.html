@@ -1,0 +1,286 @@
+<title>Pool Heat Pumps Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Direction: Swiss editorial. Grey ground, black type, one signal colour. Tiny technical labels, very large type, numbers as the visual (kW as dots). */
+:root{--bg:#E6E6E3;--paper:#EFEFEC;--ink:#111110;--mute:#6F6F6A;--line:#C4C4BF;--sig:#E8401C;--spare:#B9B9B4;--blob:#1c1c1b;--font:'Inter Tight','Helvetica Neue',Helvetica,Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121211;--paper:#1A1A18;--ink:#EDEDE9;--mute:#8E8E88;--line:#34342F;--sig:#FF5A36;--spare:#3E3E39;--blob:#d8d8d3;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121211;--paper:#1A1A18;--ink:#EDEDE9;--mute:#8E8E88;--line:#34342F;--sig:#FF5A36;--spare:#3E3E39;--blob:#d8d8d3;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;margin:0;padding-inline:16px;padding-block:0 48px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3,p{margin:0;font-weight:500}
+.micro{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+a{color:inherit}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);font:500 14px var(--font);padding:13px 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none}
+.btn.sig{background:var(--sig);color:#fff}
+.btn:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+
+/* top bar */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding-block:18px;font-size:13px}
+.bar nav{display:flex;gap:22px;color:var(--mute);flex-wrap:wrap;justify-content:center}
+.bar nav .on{color:var(--ink)}
+.bar .r{justify-self:end}
+.logo{font-weight:600;letter-spacing:-.01em}
+
+/* hero */
+.hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;padding-block:40px 0}
+.hero h1{grid-column:1/9;font-size:clamp(52px,10.5vw,148px);line-height:.9;letter-spacing:-.055em;font-weight:500;align-self:end}
+.hero h1 b{color:var(--sig);font-weight:500}
+.blob{grid-column:9/13;grid-row:1/3;aspect-ratio:3/4;border-radius:14px;position:relative;overflow:hidden;background:#C9C9C5;isolation:isolate}
+.blob i{position:absolute;border-radius:50%;background:var(--blob);filter:blur(26px);opacity:.85}
+.blob i:nth-child(1){width:46%;aspect-ratio:1;left:14%;top:12%}
+.blob i:nth-child(2){width:40%;aspect-ratio:1;left:38%;top:50%;opacity:.7}
+.blob i:nth-child(3){width:10%;aspect-ratio:1;left:70%;top:30%;filter:blur(3px);opacity:1;background:var(--sig)}
+.blob:after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.blob span{position:absolute;left:14px;bottom:12px;z-index:2;color:#111;mix-blend-mode:normal;opacity:.7}
+.hero .lede{grid-column:1/6;font-size:18px;max-width:34ch;margin-top:8px}
+.hero .meta{grid-column:6/9;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start;margin-top:8px}
+.hero .meta p{font-size:12px;line-height:1.4;color:var(--mute);font-weight:400}
+.hero .meta p b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
+.cta{grid-column:1/9;display:flex;gap:22px;align-items:center;margin-top:20px;flex-wrap:wrap;font-size:14px}
+
+section{padding-block:104px 0}
+.sec-h{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;border-top:1px solid var(--ink);padding-top:14px}
+.sec-h .micro{grid-column:1/4}
+.sec-h h2{grid-column:4/13;font-size:clamp(28px,4.2vw,56px);line-height:1;letter-spacing:-.04em}
+
+/* sentence finder */
+.say{margin-top:48px;font-size:clamp(28px,4.8vw,64px);line-height:1.18;letter-spacing:-.04em;font-weight:500;max-width:19ch*1}
+.say{max-width:none}
+.say .w{position:relative;display:inline-block}
+.say select{font:inherit;letter-spacing:inherit;color:var(--sig);background:transparent;border:0;border-bottom:3px solid var(--ink);border-radius:0;padding:0 .9em 0 0;margin:0;appearance:none;-webkit-appearance:none;cursor:pointer;max-width:100%}
+.say .w:after{content:"";position:absolute;right:.1em;top:56%;width:.28em;height:.28em;border-right:.07em solid var(--ink);border-bottom:.07em solid var(--ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.say select:invalid,.say select.empty{color:var(--mute)}
+.say option{font-size:16px;color:#111}
+.help{margin-top:18px;max-width:52ch;font-size:13px;color:var(--mute)}
+
+.out{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:56px;border-top:1px solid var(--line);padding-top:14px}
+.out .micro{grid-column:1/4}
+.out .big{grid-column:4/13}
+.out .name{font-size:clamp(80px,17vw,230px);line-height:.85;letter-spacing:-.07em;font-weight:500}
+.out .name.empty{color:var(--spare)}
+.out .why{font-size:18px;max-width:46ch;margin-top:18px}
+.out .row{display:flex;gap:20px;align-items:center;margin-top:24px;flex-wrap:wrap}
+.out .row span{font-size:13px;color:var(--mute);max-width:48ch}
+
+/* index of models */
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:40px;padding-bottom:12px}
+.legend span{display:inline-flex;gap:8px;align-items:center}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.d-use{background:var(--ink)}.d-spare{background:var(--spare)}.d-short{border:1.5px solid var(--sig)}
+.idx{border-top:1px solid var(--ink)}
+.m{display:grid;grid-template-columns:48px minmax(0,1.1fr) minmax(0,2.2fr) minmax(0,1.3fr) 24px;gap:16px;align-items:center;padding-block:18px;border-bottom:1px solid var(--line);text-decoration:none;position:relative}
+.m:hover .go{transform:translateX(4px)}
+.m .no{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.m h3{font-size:clamp(22px,2.6vw,34px);letter-spacing:-.04em;line-height:1}
+.m h3 small{display:block;font-size:12px;letter-spacing:0;color:var(--mute);margin-top:6px;font-weight:400}
+.dots{display:grid;grid-template-columns:repeat(30,minmax(0,1fr));gap:3px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--ink)}
+.dots i.sp{background:var(--spare)}
+.dots i.no{background:transparent;border:1.5px solid var(--sig)}
+.dots i.off{background:transparent;border:1px solid var(--line)}
+.m .spec{font-size:13px;line-height:1.45;font-variant-numeric:tabular-nums}
+.m .spec b{font-weight:500}
+.m .spec span{color:var(--mute);display:block}
+.go{font-size:18px;transition:transform .2s}
+.m .fit{position:absolute;right:0;top:6px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.m.best{background:linear-gradient(90deg,transparent,transparent)}
+.m.best:before{content:"";position:absolute;left:-16px;top:0;bottom:0;width:4px;background:var(--sig)}
+.fit.best{color:var(--sig)}
+.fit.good{color:var(--ink)}.fit.tight,.fit.over,.fit.small{color:var(--mute)}
+.fitnote{margin-top:14px;font-size:13px;color:var(--mute);max-width:70ch}
+
+/* features / solar */
+.two{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:40px}
+.two .l{grid-column:1/4}
+.two .r{grid-column:4/13;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.item{border-top:1px solid var(--line);padding-block:16px 28px}
+.item h3{font-size:20px;letter-spacing:-.02em}
+.item p{font-size:14px;color:var(--mute);margin-top:6px;max-width:44ch;font-weight:400}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}
+.steps div{border-top:1px solid var(--ink);padding-top:12px}
+.steps .n{font-size:clamp(48px,7vw,96px);letter-spacing:-.06em;line-height:.9;font-weight:500;margin-top:18px}
+.steps h3{font-size:17px;margin-top:14px;letter-spacing:-.01em}
+.steps p{font-size:13px;color:var(--mute);margin-top:6px;font-weight:400}
+.pvlead{max-width:60ch;margin-top:28px;font-size:18px}
+
+/* enquiry */
+.enq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;border-top:1px solid var(--ink);padding-top:14px}
+.enq .micro{grid-column:1/4}
+.enq .h{grid-column:4/13}
+.enq h2{font-size:clamp(44px,8vw,112px);line-height:.92;letter-spacing:-.06em}
+.enq .tel{font-size:clamp(24px,3.4vw,44px);letter-spacing:-.04em;margin-top:22px;color:var(--sig)}
+.enq p{margin-top:14px;max-width:48ch;color:var(--mute);font-size:14px;font-weight:400}
+form{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:0 32px;max-width:760px}
+.f{display:flex;flex-direction:column;gap:2px;padding-top:10px;border-top:1px solid var(--line);margin-bottom:18px;min-width:0}
+.f span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:500}
+input{font:400 20px var(--font);letter-spacing:-.01em;color:var(--ink);background:transparent;border:0;padding:6px 0 4px;min-width:0;width:100%;border-radius:0}
+input::placeholder{color:var(--spare)}
+details{grid-column:1/-1;margin-bottom:22px}
+summary{cursor:pointer;font-size:14px;font-weight:500}
+details .in{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;margin-top:16px}
+.full{grid-column:1/-1}
+#note{font-size:12px;color:var(--mute);margin-top:12px}
+footer{margin-top:96px;border-top:1px solid var(--ink);padding-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+
+@media (max-width:860px){
+  .bar{grid-template-columns:1fr auto}.bar nav{display:none}
+  .hero h1{grid-column:1/-1}.blob{grid-column:1/-1;grid-row:auto;aspect-ratio:16/10}
+  .hero .lede,.hero .meta,.cta{grid-column:1/-1}
+  .sec-h .micro,.out .micro,.two .l,.enq .micro{grid-column:1/-1}.sec-h h2,.out .big,.two .r,.enq .h{grid-column:1/-1}
+  .two .r{grid-template-columns:1fr}
+  .m{grid-template-columns:32px 1fr;row-gap:14px}.m .dots{grid-column:1/-1}.m .spec{grid-column:1/-1}.go{display:none}.m .fit{position:static;grid-column:1/-1}
+  .steps{grid-template-columns:1fr 1fr}
+  section{padding-block:72px 0}
+}
+@media (max-width:520px){.steps,form,details .in{grid-template-columns:1fr}}
+</style>
+
+<div class="wrap">
+<div class="bar"><span class="logo">[Brand]</span>
+<nav aria-label="Main"><span>Hydronic</span><span>Hot water</span><span class="on">Pool heat pumps</span><span>Split systems</span><span>Electrification plan</span></nav>
+<a class="r" href="#enquire">Talk to us</a></div>
+
+<div class="hero">
+  <h1>warm water, <b>sized right.</b></h1>
+  <div class="blob" role="img" aria-label="Photo placeholder"><i></i><i></i><i></i><span class="micro">Photo</span></div>
+  <p class="lede">Inverter heat pumps for pools, matched to your pool, your season and your solar.</p>
+  <div class="meta">
+    <p><b>Sunlover Oasis iX</b>Seven models, 9 to 36 kW.</p>
+    <p><b>PV Ready</b>Uses surplus solar to heat.</p>
+    <p><b>Three questions</b>To find your size.</p>
+    <p><b>Then a call</b>So we see the whole picture.</p>
+  </div>
+  <div class="cta"><a class="btn sig" href="#finder">Find my size</a><a href="#range">See the range</a></div>
+</div>
+
+<section id="finder">
+  <div class="sec-h"><span class="micro">01 Your pool</span><h2>Tell us about it.</h2></div>
+  <p class="say">
+    My pool is about
+    <span class="w"><select id="size" aria-label="Pool size"><option value="" selected>choose size</option><option value="16">up to 16 m2</option><option value="25">16 to 25 m2</option><option value="40">25 to 40 m2</option><option value="55">40 to 55 m2</option><option value="70">55 m2 or more</option></select></span>,
+    we swim from
+    <span class="w"><select id="season" aria-label="Swimming season"><option value="" selected>choose season</option><option value="oct_mar">October to March</option><option value="sep_apr">September to April</option><option value="year">all year round</option></select></span>
+    and it has
+    <span class="w"><select id="cover" aria-label="Pool cover"><option value="" selected>a cover?</option><option value="b">a pool cover</option><option value="n">no cover</option></select></span>.
+  </p>
+  <p class="help">Length x width. An 8 x 4 m pool is 32 m2. A cover keeps heat in and often saves a size.</p>
+
+  <div class="out" aria-live="polite">
+    <span class="micro">02 Suggested</span>
+    <div class="big">
+      <div class="name empty" id="rn">iX</div>
+      <p class="why" id="rt">Answer the three questions above and we will show the model we would put in.</p>
+      <div class="row"><a class="btn sig" href="#enquire">Talk to us about my pool</a><span>This is a guide. A call lets us see the sun, wind, equipment and how you swim, and we encourage it.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="range">
+  <div class="sec-h"><span class="micro">03 The range</span><h2>Seven sizes, one brand.</h2></div>
+  <div class="legend micro"><span><i class="d-use"></i>Heat your pool needs</span><span><i class="d-spare"></i>Spare capacity</span><span><i class="d-short"></i>Shortfall</span><span>1 dot = 1 kW of cool-weather output</span></div>
+  <div class="idx" id="idx"></div>
+  <p class="fitnote">Sizing follows Sunlover's Melbourne chart, using each model's cool-weather output, which is what it delivers on a cold morning, not the headline figure.</p>
+</section>
+
+<section>
+  <div class="sec-h"><span class="micro">04 Every iX</span><h2>Built in, not added on.</h2></div>
+  <div class="two"><div class="l"></div><div class="r">
+    <div class="item"><h3>Inverter efficiency</h3><p>The compressor adjusts its output instead of switching on and off. Sunlover rate it about 30% more efficient than a standard on/off unit.</p></div>
+    <div class="item"><h3>Runs on your solar</h3><p>PV Ready modes use surplus solar, or pre-heat the pool on a sunny day. Sunlover quote up to 40% lower running costs.</p></div>
+    <div class="item"><h3>Rapid Heat</h3><p>Faster heat-up when you want the pool ready, then it settles back to efficient running.</p></div>
+    <div class="item"><h3>Control from your phone</h3><p>WiFi as standard, and a 3.5 inch touch screen for temperature and schedules.</p></div>
+    <div class="item"><h3>Lower impact refrigerant</h3><p>R32, which has a lower global warming potential than older refrigerants.</p></div>
+    <div class="item"><h3>Built to last outdoors</h3><p>UV-resistant finish, a 5 year compressor warranty and 25 years on the heat exchanger.</p></div>
+  </div></div>
+</section>
+
+<section>
+  <div class="sec-h"><span class="micro">05 PV Ready</span><h2>Heat the pool with your own sun.</h2></div>
+  <p class="pvlead">Pair it with solar and the heat pump uses power you would otherwise export for very little. Choose Normal, Eco or Temp Plus to suit how you swim.</p>
+  <div class="steps">
+    <div><span class="micro">Morning</span><div class="n">01</div><h3>Sun comes up</h3><p>It talks to a Smart Grid Ready inverter and picks up surplus power instead of sending it to the grid.</p></div>
+    <div><span class="micro">Midday</span><div class="n">02</div><h3>Rapid Heat</h3><p>It switches to Rapid Heat and warms the pool quickly with that free power.</p></div>
+    <div><span class="micro">Afternoon</span><div class="n">03</div><h3>Heat stored</h3><p>It pre-heats while the sun shines, so the pool stays warm when cloud rolls in.</p></div>
+    <div><span class="micro">Evening</span><div class="n">04</div><h3>Back to normal</h3><p>At your set temperature it returns to normal running.</p></div>
+  </div>
+</section>
+
+<section id="enquire">
+  <div class="enq">
+    <span class="micro">06 Next</span>
+    <div class="h">
+      <h2>talk to us.</h2>
+      <div class="tel">[phone number]</div>
+      <p>A conversation is the quickest way to the right unit. We check your pool, power and site, then recommend. Prefer to write? Leave your details.</p>
+      <form id="f">
+        <label class="f"><span>Name</span><input id="n" autocomplete="name" placeholder="Your name"></label>
+        <label class="f"><span>Mobile</span><input id="m" type="tel" autocomplete="tel" placeholder="04"></label>
+        <label class="f"><span>Email</span><input id="e" type="email" autocomplete="email" placeholder="you@email.com"></label>
+        <label class="f"><span>Postcode</span><input id="p" inputmode="numeric" autocomplete="postal-code" placeholder="3000"></label>
+        <details><summary>More about your pool (optional)</summary>
+          <div class="in"><label class="f"><span>What heats it now</span><input id="h" placeholder="Gas, electric, nothing"></label><label class="f"><span>Power at the equipment</span><input id="pw" placeholder="Single, three phase, not sure"></label></div></details>
+        <div class="full"><button class="btn sig" type="submit">Book my free assessment</button><div id="note">Preview only. Nothing is sent from here.</div></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><span>[Brand] by Heataire Services</span><span>South-east Melbourne and the Mornington Peninsula</span><span>38+ years in heating and hot water</span></footer>
+</div>
+
+<script>
+(function(){
+  var MODELS=[
+    {n:'iX9',d:'Small pools and plunge pools',h:9.4,c:6.6,p:'10 amp plug-in',t:false},
+    {n:'iX13',d:'Small to medium pools',h:12.8,c:9.1,p:'15 amp plug-in',t:false},
+    {n:'iX19',d:'The average family pool',h:18.9,c:12.5,p:'Hardwired, own circuit',t:false},
+    {n:'iX24',d:'Larger pools, longer seasons',h:24.6,c:18.6,p:'Hardwired, own circuit',t:false},
+    {n:'iX28T',d:'Large pools, three phase',h:28.9,c:21.4,p:'Three phase, hardwired',t:true},
+    {n:'iX28',d:'Large pools, single phase',h:28.0,c:21.7,p:'Hardwired, own circuit',t:false},
+    {n:'iX36T',d:'Our biggest, all year swimming',h:36.0,c:27.0,p:'Three phase, hardwired',t:true}
+  ].sort(function(a,b){return a.c-b.c});
+  var KW={oct_mar:{b:.298,n:.668},sep_apr:{b:.438,n:.98},year:{b:.76,n:1.7}};
+  var SIZE={16:16,25:28,40:40,55:56,70:72};
+  var DOTS=30;
+  var el={size:document.getElementById('size'),season:document.getElementById('season'),cover:document.getElementById('cover')};
+  var idx=document.getElementById('idx');
+  function fit(r){return r<1?['Too small','small']:r<1.15?['Just enough','tight']:r<1.6?['Good fit','good']:['Larger than needed','over']}
+  function dots(c,need){
+    var cap=Math.round(c),s='';
+    for(var i=1;i<=DOTS;i++){
+      var cls;
+      if(need===null){cls=i<=cap?'':'off'}
+      else{var nd=Math.ceil(need);
+        if(i<=cap&&i<=nd)cls='';else if(i<=cap)cls='sp';else if(i<=nd)cls='no';else cls='off'}
+      s+='<i'+(cls?' class="'+cls+'"':'')+'></i>';
+    }
+    return '<div class="dots" aria-hidden="true">'+s+'</div>';
+  }
+  function render(){
+    var v={size:el.size.value,season:el.season.value,cover:el.cover.value};
+    ['size','season','cover'].forEach(function(k){el[k].classList.toggle('empty',!v[k])});
+    var need=null,best=null;
+    if(v.size&&v.season&&v.cover){
+      need=KW[v.season][v.cover]*SIZE[v.size];
+      var ok=MODELS.filter(function(m){return m.c>=need});
+      var single=ok.filter(function(m){return !m.t});
+      best=single[0]||ok[0]||null;
+    }
+    idx.innerHTML=MODELS.map(function(m,i){
+      var f=need!==null?fit(m.c/need):null;
+      var tag=f?'<span class="fit '+(m===best?'best':f[1])+'">'+(m===best?'Best fit':f[0])+'</span>':'';
+      return '<a class="m'+(m===best?' best':'')+'" href="#enquire"><span class="no">'+String(i+1).padStart(2,'0')+'</span><h3>'+m.n+'<small>'+m.d+'</small></h3>'+dots(m.c,need)+'<div class="spec"><b>'+m.h.toFixed(1)+' kW</b> heating<span>'+m.c.toFixed(1)+' kW cool weather</span><span>'+m.p+'</span></div><span class="go" aria-hidden="true">&rarr;</span>'+tag+'</a>';
+    }).join('');
+    var rn=document.getElementById('rn'),rt=document.getElementById('rt');
+    if(need===null){rn.textContent='iX';rn.className='name empty';rt.textContent='Answer the three questions above and we will show the model we would put in.';return}
+    if(!best){rn.textContent='Let us size this one';rn.className='name';rn.style.fontSize='clamp(40px,8vw,104px)';rt.textContent='A pool this size for this season needs more than a single unit from our range, so we would work out the right setup with you.';return}
+    rn.style.fontSize='';rn.className='name';rn.textContent=best.n;
+    rt.textContent='Needs about '+need.toFixed(0)+' kW on a cool day. The '+best.n+' gives '+best.c.toFixed(1)+' kW. Power: '+best.p.toLowerCase()+'.';
+  }
+  ['size','season','cover'].forEach(function(k){el[k].addEventListener('change',render)});
+  document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('note').textContent='Preview only. On the live page this goes to your enquiry form.'});
+  render();
+})();
+</script>

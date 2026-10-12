@@ -1,0 +1,501 @@
+<title>Pool Heat Pump Concepts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;800&family=Archivo:wght@400;500;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--font:'Inter Tight','Helvetica Neue',Arial,sans-serif;--disp:'Inter Tight','Helvetica Neue',Arial,sans-serif;--hw:500;--track:-.05em;--h1case:lowercase;--rad:999px;--rad2:14px;
+--bg:#E6E6E3;--paper:#EFEFEC;--ink:#111110;--mute:#6F6F6A;--line:#C4C4BF;--sig:#E8401C;--on-sig:#fff;--warn:#E8401C;--spare:#B9B9B4;--blob:#1c1c1b;--blobbg:#C9C9C5;color-scheme:light}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.5;margin:0;padding-inline:16px;padding-block:0 48px;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto}
+h1,h2,h3,p{margin:0;font-weight:500}
+.micro{font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+a{color:inherit}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);font:500 14px var(--font);padding:13px 22px;border-radius:999px;border:0;cursor:pointer;text-decoration:none}
+.btn.sig{background:var(--sig);color:var(--on-sig)}
+.btn:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,a:focus-visible{outline:2px solid var(--sig);outline-offset:3px}
+
+/* top bar */
+.bar{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding-block:18px;font-size:13px}
+.bar nav{display:flex;gap:22px;color:var(--mute);flex-wrap:wrap;justify-content:center}
+.bar nav .on{color:var(--ink)}
+.bar .r{justify-self:end}
+.logo{font-weight:600;letter-spacing:-.01em}
+
+/* hero */
+.hero{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;padding-block:40px 0}
+.hero h1{grid-column:1/9;font-size:clamp(52px,10.5vw,148px);line-height:.9;letter-spacing:-.055em;font-weight:500;align-self:end}
+.hero h1 b{color:var(--sig);font-weight:500}
+.blob{grid-column:9/13;grid-row:1/3;aspect-ratio:3/4;border-radius:14px;position:relative;overflow:hidden;background:var(--blobbg);isolation:isolate}
+.blob i{position:absolute;border-radius:50%;background:var(--blob);filter:blur(26px);opacity:.85}
+.blob i:nth-child(1){width:46%;aspect-ratio:1;left:14%;top:12%}
+.blob i:nth-child(2){width:40%;aspect-ratio:1;left:38%;top:50%;opacity:.7}
+.blob i:nth-child(3){width:10%;aspect-ratio:1;left:70%;top:30%;filter:blur(3px);opacity:1;background:var(--sig)}
+.blob:after{content:"";position:absolute;inset:0;opacity:.35;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+.blob span{position:absolute;left:14px;bottom:12px;z-index:2;color:var(--ink);opacity:.7}
+.hero .lede{grid-column:1/6;font-size:18px;max-width:34ch;margin-top:8px}
+.hero .meta{grid-column:6/9;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start;margin-top:8px}
+.hero .meta p{font-size:12px;line-height:1.4;color:var(--mute);font-weight:400}
+.hero .meta p b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px}
+.cta{grid-column:1/9;display:flex;gap:22px;align-items:center;margin-top:20px;flex-wrap:wrap;font-size:14px}
+
+section{padding-block:104px 0}
+.sec-h{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;border-top:1px solid var(--ink);padding-top:14px}
+.sec-h .micro{grid-column:1/4}
+.sec-h h2{grid-column:4/13;font-size:clamp(28px,4.2vw,56px);line-height:1;letter-spacing:-.04em}
+
+/* sentence finder */
+.say{margin-top:48px;font-size:clamp(28px,4.8vw,64px);line-height:1.18;letter-spacing:-.04em;font-weight:500;max-width:19ch*1}
+.say{max-width:none}
+.say .w{position:relative;display:inline-block}
+.say select{font:inherit;letter-spacing:inherit;color:var(--sig);background:transparent;border:0;border-bottom:3px solid var(--ink);border-radius:0;padding:0 .9em 0 0;margin:0;appearance:none;-webkit-appearance:none;cursor:pointer;max-width:100%}
+.say .w:after{content:"";position:absolute;right:.1em;top:56%;width:.28em;height:.28em;border-right:.07em solid var(--ink);border-bottom:.07em solid var(--ink);transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.say select:invalid,.say select.empty{color:var(--mute)}
+.say option{font-size:16px;color:#111;background:#fff}
+.help{margin-top:18px;max-width:52ch;font-size:13px;color:var(--mute)}
+
+.out{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:56px;border-top:1px solid var(--line);padding-top:14px}
+.out .micro{grid-column:1/4}
+.out .big{grid-column:4/13}
+.out .name{font-size:clamp(80px,17vw,230px);line-height:.85;letter-spacing:-.07em;font-weight:500}
+.out .name.empty{color:var(--spare)}
+.out .why{font-size:18px;max-width:46ch;margin-top:18px}
+.out .row{display:flex;gap:20px;align-items:center;margin-top:24px;flex-wrap:wrap}
+.out .row span{font-size:13px;color:var(--mute);max-width:48ch}
+
+/* variants */
+.legend{display:flex;gap:22px;flex-wrap:wrap;margin-top:40px;padding-bottom:12px}
+.legend span{display:inline-flex;gap:8px;align-items:center}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.d-use{background:var(--ink)}.d-spare{background:var(--spare)}.d-short{border:1.5px solid var(--sig)}
+.idx{border-top:1px solid var(--ink)}
+.m{display:grid;grid-template-columns:48px minmax(0,1.1fr) minmax(0,2.2fr) minmax(0,1.3fr) 24px;gap:16px;align-items:center;padding-block:18px;border-bottom:1px solid var(--line);text-decoration:none;position:relative}
+.m:hover .go{transform:translateX(4px)}
+.m .no{font-size:12px;color:var(--mute);font-variant-numeric:tabular-nums}
+.m h3{font-size:clamp(22px,2.6vw,34px);letter-spacing:-.04em;line-height:1}
+.m h3 small{display:block;font-size:12px;letter-spacing:0;color:var(--mute);margin-top:6px;font-weight:400}
+.dots{display:grid;grid-template-columns:repeat(30,minmax(0,1fr));gap:3px}
+.dots i{aspect-ratio:1;border-radius:50%;background:var(--ink)}
+.dots i.sp{background:var(--spare)}
+.dots i.no{background:transparent;border:1.5px solid var(--sig)}
+.dots i.off{background:transparent;border:1px solid var(--line)}
+.m .spec{font-size:13px;line-height:1.45;font-variant-numeric:tabular-nums}
+.m .spec b{font-weight:500}
+.m .spec span{color:var(--mute);display:block}
+.go{font-size:18px;transition:transform .2s}
+.m .fit{position:absolute;right:0;top:6px;font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
+.m.best{background:linear-gradient(90deg,transparent,transparent)}
+.m.best:before{content:"";position:absolute;left:-16px;top:0;bottom:0;width:4px;background:var(--sig)}
+.fit.best{color:var(--sig)}
+.fit.good{color:var(--ink)}.fit.tight,.fit.over,.fit.small{color:var(--mute)}
+.fitnote{margin-top:14px;font-size:13px;color:var(--mute);max-width:70ch}
+
+/* features / solar */
+.two{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;margin-top:40px}
+.two .l{grid-column:1/4}
+.two .r{grid-column:4/13;display:grid;grid-template-columns:1fr 1fr;gap:0 32px}
+.item{border-top:1px solid var(--line);padding-block:16px 28px}
+.item h3{font-size:20px;letter-spacing:-.02em}
+.item p{font-size:14px;color:var(--mute);margin-top:6px;max-width:44ch;font-weight:400}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin-top:40px}
+.steps div{border-top:1px solid var(--ink);padding-top:12px}
+.steps .n{font-size:clamp(48px,7vw,96px);letter-spacing:-.06em;line-height:.9;font-weight:500;margin-top:18px}
+.steps h3{font-size:17px;margin-top:14px;letter-spacing:-.01em}
+.steps p{font-size:13px;color:var(--mute);margin-top:6px;font-weight:400}
+.pvlead{max-width:60ch;margin-top:28px;font-size:18px}
+
+/* enquiry */
+.enq{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px;border-top:1px solid var(--ink);padding-top:14px}
+.enq .micro{grid-column:1/4}
+.enq .h{grid-column:4/13}
+.enq h2{font-size:clamp(44px,8vw,112px);line-height:.92;letter-spacing:-.06em}
+.enq .tel{font-size:clamp(24px,3.4vw,44px);letter-spacing:-.04em;margin-top:22px;color:var(--sig)}
+.enq p{margin-top:14px;max-width:48ch;color:var(--mute);font-size:14px;font-weight:400}
+form{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:0 32px;max-width:760px}
+.f{display:flex;flex-direction:column;gap:2px;padding-top:10px;border-top:1px solid var(--line);margin-bottom:18px;min-width:0}
+.f span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:500}
+input{font:400 20px var(--font);letter-spacing:-.01em;color:var(--ink);background:transparent;border:0;padding:6px 0 4px;min-width:0;width:100%;border-radius:0}
+input::placeholder{color:var(--spare)}
+details{grid-column:1/-1;margin-bottom:22px}
+summary{cursor:pointer;font-size:14px;font-weight:500}
+details .in{display:grid;grid-template-columns:1fr 1fr;gap:0 32px;margin-top:16px}
+.full{grid-column:1/-1}
+#note{font-size:12px;color:var(--mute);margin-top:12px}
+footer{margin-top:96px;border-top:1px solid var(--ink);padding-top:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--mute)}
+
+@media (max-width:860px){
+  .bar{grid-template-columns:1fr auto}.bar nav{display:none}
+  .hero h1{grid-column:1/-1}.blob{grid-column:1/-1;grid-row:auto;aspect-ratio:16/10}
+  .hero .lede,.hero .meta,.cta{grid-column:1/-1}
+  .sec-h .micro,.out .micro,.two .l,.enq .micro{grid-column:1/-1}.sec-h h2,.out .big,.two .r,.enq .h{grid-column:1/-1}
+  .two .r{grid-template-columns:1fr}
+  .m{grid-template-columns:32px 1fr;row-gap:14px}.m .dots{grid-column:1/-1}.m .spec{grid-column:1/-1}.go{display:none}.m .fit{position:static;grid-column:1/-1}
+  .steps{grid-template-columns:1fr 1fr}
+  section{padding-block:72px 0}
+}
+@media (max-width:520px){.steps,form,details .in{grid-template-columns:1fr}}
+
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:40px;align-items:center}
+.tabs button{font:500 13px var(--font);color:var(--ink);background:transparent;border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.vh{margin-top:28px;max-width:60ch;font-size:13px;color:var(--mute)}
+.stage{margin-top:20px}
+.vd{font-size:clamp(20px,2.4vw,30px);letter-spacing:-.03em;line-height:1.1}
+.ok{color:var(--ink)}.bad{color:var(--warn)}.mid{color:var(--mute)}
+.sp2{font-size:13px;color:var(--mute);font-weight:400}
+.tag-best{display:inline-block;background:var(--sig);color:var(--on-sig);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 9px;border-radius:999px;margin-bottom:8px}
+/* A verdict rows */
+.ra{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,1.2fr);gap:16px;align-items:center;padding-block:20px;border-bottom:1px solid var(--line)}
+.ra h3{font-size:clamp(24px,3vw,38px);letter-spacing:-.04em;line-height:1}
+.ra.best{border-left:4px solid var(--sig);padding-left:16px;margin-left:-20px}
+.ra .spec,.rd .spec{font-size:13px;line-height:1.45}
+.ra .spec span,.rd .spec span{display:block;color:var(--mute)}
+/* B bars */
+.bh{display:grid;grid-template-columns:100px minmax(0,1fr) 130px;gap:16px;padding-block:6px}
+.bar2{display:grid;grid-template-columns:100px minmax(0,1fr) 130px;gap:16px;align-items:center;padding-block:14px;border-bottom:1px solid var(--line)}
+.bar2 h3{font-size:22px;letter-spacing:-.03em}
+.track{position:relative;height:18px;background:transparent;border-left:1px solid var(--ink)}
+.track .fill{position:absolute;left:0;top:0;bottom:0;background:var(--ink);border-radius:0 3px 3px 0}
+.track .fill.short{background:var(--warn)}
+.track .need{position:absolute;top:-14px;bottom:-14px;width:0;border-left:2px dashed var(--warn)}
+.needlab{position:relative;height:22px}
+.needlab span{position:absolute;transform:translateX(-50%);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--warn);white-space:nowrap}
+.bar2 .r2{font-size:13px;text-align:right}
+.bar2 .r2 b{display:block;font-weight:500}
+.bar2 .r2 span{color:var(--mute)}
+.bar2.best h3{color:var(--sig)}
+/* C cards */
+.cc{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:stretch}
+.cardc{border-top:1px solid var(--ink);padding-top:14px;display:flex;flex-direction:column;gap:8px}
+.cardc.hero2{border-top:4px solid var(--sig)}
+.cardc h3{font-size:clamp(44px,6vw,84px);letter-spacing:-.06em;line-height:.9}
+.cardc.small h3{font-size:clamp(32px,3.6vw,48px)}
+.cardc .spec{font-size:13px;line-height:1.5;margin-top:6px}
+.cardc .spec span{display:block;color:var(--mute)}
+.cardc .lbl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:500}
+.more{margin-top:24px}
+.more summary{cursor:pointer;font-size:14px;font-weight:500}
+.more table{margin-top:14px}
+/* D table */
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);font-weight:500;text-align:left;padding:10px 12px 10px 0;border-bottom:1px solid var(--ink)}
+td{padding:16px 12px 16px 0;border-bottom:1px solid var(--line);vertical-align:middle}
+td.n{font-size:22px;letter-spacing:-.03em;font-weight:500}
+td.n small{display:block;font-size:12px;color:var(--mute);letter-spacing:0;font-weight:400}
+.tick{display:inline-flex;align-items:center;gap:8px;font-weight:500}
+.tick i{width:22px;height:22px;border-radius:50%;display:inline-grid;place-items:center;font-style:normal;font-size:13px}
+.tick.y i{background:var(--ink);color:var(--bg)}
+.tick.m i{border:1.5px solid var(--ink)}
+.tick.n i{border:1.5px solid var(--warn);color:var(--warn)}
+tr.best td{background:transparent}
+tr.best td.n{color:var(--sig)}
+.tw{overflow-x:auto}
+.say-d{font-size:clamp(22px,3vw,36px);letter-spacing:-.035em;line-height:1.15;max-width:34ch;margin-bottom:28px}
+@media (max-width:860px){
+  .ra{grid-template-columns:1fr}.ra.best{margin-left:0}
+  .bh{display:none}.bar2{grid-template-columns:70px minmax(0,1fr)}.bar2 .r2{grid-column:1/-1;text-align:left}
+  .cc{grid-template-columns:1fr}
+}
+
+/* style layer */
+.hero h1,.sec-h h2,.name,.say,.enq h2,.vd,.steps .n,.cardc h3,.ra h3,.bar2 h3,td.n,.say-d,.tel,.item h3{font-family:var(--disp);font-weight:var(--hw);letter-spacing:var(--track)}
+.hero h1{text-transform:var(--h1case)}
+.btn,.tabs button{border-radius:var(--rad)}
+.blob{border-radius:var(--rad2)}
+.vlabel{font-size:13px;color:var(--mute);margin-right:6px}
+.tabs button{border-color:var(--line)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+body{transition:background .25s,color .25s}
+
+.menubtn{display:none;font:500 13px var(--font);background:var(--ink);color:var(--bg);border:0;border-radius:6px;padding:9px 16px;cursor:pointer}
+.ov{position:fixed;inset:0;background:var(--bg);z-index:100;padding:16px;display:none;flex-direction:column}
+.ov.open{display:flex}
+.ov .top{display:flex;justify-content:space-between;align-items:center}
+.ov .menu{margin-top:auto;padding-bottom:8px}
+.ov .menu .micro{color:var(--sig);margin-bottom:10px;text-transform:none;letter-spacing:0;font-size:13px}
+.ov a{display:flex;gap:14px;align-items:baseline;border-top:1px solid var(--ink);padding:10px 0;font-size:clamp(28px,8vw,40px);letter-spacing:-.04em;text-decoration:none;line-height:1.1}
+.ov a sup{font-size:11px;letter-spacing:0;color:var(--mute);min-width:18px}
+.ov a.on{color:var(--sig)}
+.ov a.on sup{color:var(--sig)}
+.ov .call2{margin-top:14px;font-size:13px;color:var(--mute)}
+@media (max-width:860px){.menubtn{display:inline-block}.bar .r{display:none}}
+
+/* ---------- concepts ---------- */
+.sw{position:sticky;top:0;z-index:200;background:#0A0A0A;color:#fff;display:flex;gap:6px;align-items:center;padding:8px 16px;font:500 12px 'Inter Tight',sans-serif;flex-wrap:wrap}
+.sw span{opacity:.6;margin-right:6px}
+.sw button{font:500 12px 'Inter Tight',sans-serif;color:#fff;background:transparent;border:1px solid #555;border-radius:999px;padding:6px 12px;cursor:pointer}
+.sw button[aria-pressed="true"]{background:#fff;color:#0A0A0A;border-color:#fff}
+.dim{color:inherit}
+.wrap{position:relative;z-index:1}
+.s-hero{padding-block:0}
+
+/* 1 POSTER: heavy type, thick rules, coral */
+[data-style="poster"]{--font:'Inter Tight',sans-serif;--disp:'Archivo','Helvetica Neue',Arial,sans-serif;--hw:900;--track:-.06em;--h1case:none;--rad:0px;--rad2:0px;
+--bg:#EDECE8;--ink:#0A0A0A;--mute:#6A6A66;--line:#CFCEC8;--sig:#F0553F;--on-sig:#0A0A0A;--warn:#F0553F;--spare:#CFCEC8;--blob:#0A0A0A;--blobbg:#D6D5CF}
+[data-style="poster"] .sec-h{border-top:6px solid var(--ink);padding-top:12px}
+[data-style="poster"] .enq,[data-style="poster"] footer{border-top:6px solid var(--ink)}
+[data-style="poster"] .sec-h h2,[data-style="poster"] .enq h2{line-height:.88}
+[data-style="poster"] .btn,[data-style="poster"] .tabs button{border-radius:0}
+[data-style="poster"] .btn{font-weight:600}
+[data-style="poster"] .say select{border-bottom-width:6px}
+[data-style="poster"] .say{font-family:var(--disp);font-weight:800;letter-spacing:-.05em}
+[data-style="poster"] .hero h1 b{color:var(--sig)}
+[data-style="poster"] .out .name{font-weight:900}
+[data-style="poster"] .steps div{border-top:4px solid var(--ink)}
+[data-style="poster"] .item{border-top:2px solid var(--ink)}
+[data-style="poster"] .ra,[data-style="poster"] .bar2,[data-style="poster"] td{border-bottom-color:var(--ink)}
+[data-style="poster"] .blob:after{opacity:.5}
+@media (min-width:861px){
+  [data-style="poster"] .hero{padding-top:28px;row-gap:28px}
+  [data-style="poster"] .hero h1{grid-column:1/-1;grid-row:1;font-size:clamp(80px,19.5vw,300px);line-height:.78;margin-left:-.05em}
+  [data-style="poster"] .hero .lede{grid-column:1/5;grid-row:2;font-size:20px;font-weight:500}
+  [data-style="poster"] .hero .meta{grid-column:5/9;grid-row:2}
+  [data-style="poster"] .blob{grid-column:9/13;grid-row:2;aspect-ratio:1/1}
+  [data-style="poster"] .cta{grid-column:1/9;grid-row:3}
+  [data-style="poster"] .sec-h h2{font-size:clamp(44px,8.4vw,128px)}
+}
+[data-style="poster"] .hero h1{font-size:clamp(60px,20vw,300px);line-height:.82}
+
+/* 2 BLOCKS: full-bleed colour bands, paper / stone / coral / black */
+[data-style="blocks"]{--font:'Inter Tight',sans-serif;--disp:'Inter Tight',sans-serif;--hw:500;--track:-.055em;--h1case:none;--rad:999px;--rad2:0px;
+--bg:#F4F2EC;--ink:#0B0B0B;--mute:#6E6B62;--line:#BDB8AA;--sig:#F0553F;--on-sig:#0B0B0B;--warn:#E03B26;--spare:#CFC9BB;--blob:#0B0B0B;--blobbg:#E7E3D8}
+[data-style="blocks"] section,[data-style="blocks"] footer{color:var(--ink);padding-block:80px;background:var(--band,var(--bg));box-shadow:0 0 0 100vmax var(--band,var(--bg));clip-path:inset(0 -100vmax)}
+[data-style="blocks"] .s-hero{--band:#F4F2EC;padding-block:24px 80px}
+[data-style="blocks"] .s-find{--band:#DDD8CB;--blobbg:#DDD8CB;--line:#A9A394}
+[data-style="blocks"] .s-feat{--band:#F4F2EC}
+[data-style="blocks"] .s-pv{--band:#F0553F;--ink:#0B0B0B;--mute:#4A1A12;--line:#0B0B0B;--sig:#0B0B0B;--on-sig:#F0553F}
+[data-style="blocks"] .s-enq,[data-style="blocks"] .s-foot{--band:#0B0B0B;--ink:#F4F2EC;--mute:#8E8B82;--line:#33322F;--sig:#F0553F;--on-sig:#0B0B0B}
+[data-style="blocks"] .sec-h,[data-style="blocks"] .enq{border-top:0;padding-top:0}
+[data-style="blocks"] .s-foot{padding-block:24px 40px;margin-top:0;border-top:0}
+[data-style="blocks"] .s-find .tabs button[aria-pressed="true"]{background:var(--ink);color:var(--band)}
+[data-style="blocks"] .s-pv .steps div{border-top-color:#0B0B0B}
+[data-style="blocks"] .s-pv .micro{color:#0B0B0B}
+[data-style="blocks"] input::placeholder{color:#55524B}
+[data-style="blocks"] .blob{border-radius:0}
+[data-style="blocks"] body{padding-bottom:0}
+[data-style="blocks"] .s-foot{padding-bottom:48px}
+@media (min-width:861px){[data-style="blocks"] .hero h1{font-size:clamp(60px,12vw,176px)}}
+[data-style="blocks"] .s-pv .steps .n{color:#0B0B0B}
+
+/* 3 GLASS: soft grain, blurred forms, frosted panels */
+[data-style="glass"]{--font:'Inter Tight',sans-serif;--disp:'Inter Tight',sans-serif;--hw:300;--track:-.06em;--h1case:none;--rad:999px;--rad2:22px;
+--bg:#DCDCD9;--ink:#141414;--mute:#5E5E5A;--line:rgba(20,20,20,.18);--sig:#E8502C;--on-sig:#fff;--warn:#D6401D;--spare:#CFCFCB;--blob:#222;--blobbg:#C8C8C4}
+[data-style="glass"] body,body[data-g]{}
+[data-style="glass"] body{background:#DCDCD9}
+[data-style="glass"] body:before{content:"";position:fixed;inset:-10%;z-index:0;pointer-events:none;background:
+ radial-gradient(circle at 18% 22%,rgba(30,30,30,.85) 0,rgba(30,30,30,0) 20%),
+ radial-gradient(circle at 78% 58%,rgba(40,40,40,.8) 0,rgba(40,40,40,0) 24%),
+ radial-gradient(circle at 40% 85%,rgba(232,80,44,.5) 0,rgba(232,80,44,0) 16%);filter:blur(30px)}
+[data-style="glass"] body:after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.28;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E")}
+[data-style="glass"] section{margin-top:20px;padding:44px;background:rgba(244,244,242,.72);-webkit-backdrop-filter:blur(26px) saturate(1.1);backdrop-filter:blur(26px) saturate(1.1);border:1px solid rgba(255,255,255,.7);border-radius:28px;box-shadow:0 30px 60px -40px rgba(0,0,0,.4)}
+[data-style="glass"] .s-hero{padding:28px 28px 40px}
+[data-style="glass"] .sec-h,[data-style="glass"] .enq{border-top:0;padding-top:0}
+[data-style="glass"] .tabs button,[data-style="glass"] .seg{background:rgba(255,255,255,.5)}
+[data-style="glass"] .tabs button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+[data-style="glass"] input{background:rgba(255,255,255,.55);border-radius:12px;padding-inline:14px;border:1px solid rgba(255,255,255,.8)}
+[data-style="glass"] .f{border-top:0}
+[data-style="glass"] .blob{box-shadow:0 30px 50px -30px rgba(0,0,0,.5)}
+[data-style="glass"] .sec-h h2{font-weight:300}
+[data-style="glass"] .hero h1 b{color:var(--ink);font-weight:500}
+[data-style="glass"] .bar{padding-inline:8px}
+[data-style="glass"] footer{border-top:0;position:relative;z-index:1}
+@media (max-width:520px){[data-style="glass"] section{padding:26px 20px;border-radius:22px}}
+
+/* 4 INK: black, statement lines, dimmed second halves */
+[data-style="ink"]{--font:'Inter Tight',sans-serif;--disp:'Inter Tight',sans-serif;--hw:500;--track:-.055em;--h1case:none;--rad:999px;--rad2:18px;
+--bg:#0A0A0A;--ink:#F2F2EE;--mute:#75756F;--line:#262624;--sig:#F0553F;--on-sig:#0A0A0A;--warn:#F0553F;--spare:#2A2A28;--blob:#B9B9B3;--blobbg:#141414;color-scheme:dark}
+[data-style="ink"] .dim,[data-style="ink"] .hero h1 b{color:#4B4B47}
+[data-style="ink"] .sec-h,[data-style="ink"] .enq,[data-style="ink"] footer{border-top:1px solid var(--line)}
+[data-style="ink"] .sec-h h2,[data-style="ink"] .enq h2{font-size:clamp(34px,6vw,88px);line-height:.96}
+[data-style="ink"] .say select{border-bottom-color:#3A3A37}
+[data-style="ink"] .blob:after{mix-blend-mode:screen;opacity:.16}
+[data-style="ink"] .steps div{border-top-color:#3A3A37}
+[data-style="ink"] .steps .n{color:#4B4B47}
+[data-style="ink"] .steps div:hover .n{color:var(--sig)}
+[data-style="ink"] .say .w:after{border-color:#75756F}
+[data-style="ink"] .tel{color:var(--sig)}
+[data-style="ink"] .out .name.empty{color:#2A2A28}
+[data-style="ink"] input{border-bottom:0}
+@media (min-width:861px){[data-style="ink"] .hero h1{font-size:clamp(60px,12.5vw,190px);line-height:.88;grid-column:1/10;grid-row:1}[data-style="ink"] .blob{grid-column:10/13;grid-row:1/3}[data-style="ink"] .hero .lede{grid-column:1/6;grid-row:2}[data-style="ink"] .hero .meta{grid-column:6/10;grid-row:2}[data-style="ink"] .cta{grid-column:1/10;grid-row:3}}
+</style>
+<div class="sw" role="group" aria-label="Concept (prototype control)"><span>Concept</span><button type="button" data-s="swiss" aria-pressed="false">Swiss grey (current)</button><button type="button" data-s="poster" aria-pressed="true">1 Poster</button><button type="button" data-s="blocks" aria-pressed="false">2 Blocks</button><button type="button" data-s="glass" aria-pressed="false">3 Glass</button><button type="button" data-s="ink" aria-pressed="false">4 Ink</button></div>
+<div class="wrap">
+<div class="bar"><span class="logo">[Brand]</span>
+<nav aria-label="Main"><span>Hydronic</span><span>Hot water</span><span class="on">Pool heat pumps</span><span>Split systems</span><span>Electrification plan</span></nav>
+<a class="r" href="#enquire">Talk to us</a><button class="menubtn" type="button" id="mo" aria-expanded="false" aria-controls="ov">Menu</button></div>
+<div class="ov" id="ov" role="dialog" aria-label="Menu"><div class="top"><span class="logo">[Brand]</span><button class="menubtn" style="display:inline-block" type="button" id="mc">Close &times;</button></div><div class="menu"><div class="micro">Menu</div><a href="#"><sup>00</sup>Home</a><a href="#"><sup>01</sup>Hydronic heating</a><a href="#"><sup>02</sup>Hot water heat pumps</a><a class="on" href="#"><sup>03</sup>Pool heat pumps</a><a href="#"><sup>04</sup>Split systems</a><a href="#"><sup>05</sup>Electrification plan</a><a href="#enquire"><sup>06</sup>Contact</a><p class="call2">Prefer to talk? Call [phone number].</p></div></div>
+
+<section class="s-hero"><div class="hero">
+  <h1>Warm water, <b>sized right.</b></h1>
+  <div class="blob" role="img" aria-label="Photo placeholder"><i></i><i></i><i></i><span class="micro">Photo</span></div>
+  <p class="lede">Inverter heat pumps for pools, matched to your pool, your season and your solar.</p>
+  <div class="meta">
+    <p><b>Sunlover Oasis iX</b>Seven models, 9 to 36 kW.</p>
+    <p><b>PV Ready</b>Uses surplus solar to heat.</p>
+    <p><b>Three questions</b>To find your size.</p>
+    <p><b>Then a call</b>So we see the whole picture.</p>
+  </div>
+  <div class="cta"><a class="btn sig" href="#finder">Find my size</a><a href="#enquire">Or call us</a></div>
+</div></section>
+<section id="finder" class="s-find">
+  <div class="sec-h"><span class="micro">01 Your pool</span><h2>Tell us <span class="dim">about it.</span></h2></div>
+  
+  <p class="say">
+    My pool is about
+    <span class="w"><select id="size" aria-label="Pool size"><option value="" selected>choose size</option><option value="16">up to 16 m2</option><option value="25">16 to 25 m2</option><option value="40">25 to 40 m2</option><option value="55">40 to 55 m2</option><option value="70">55 m2 or more</option></select></span>,
+    we swim from
+    <span class="w"><select id="season" aria-label="Swimming season"><option value="" selected>choose season</option><option value="oct_mar">October to March</option><option value="sep_apr">September to April</option><option value="year">all year round</option></select></span>
+    and it has
+    <span class="w"><select id="cover" aria-label="Pool cover"><option value="" selected>a cover?</option><option value="b">a pool cover</option><option value="n">no cover</option></select></span>.
+  </p>
+  <p class="help">Length x width. An 8 x 4 m pool is 32 m2.</p>
+
+  <div class="tabs" role="group" aria-label="How would you like to see it"><span class="vlabel">See it as</span>
+    <button type="button" data-v="a" aria-pressed="true">Plain English</button>
+    <button type="button" data-v="b" aria-pressed="false">Bars</button>
+    <button type="button" data-v="c" aria-pressed="false">Our pick</button>
+    <button type="button" data-v="d" aria-pressed="false">Table</button>
+  </div>
+  <p class="vh" id="vh"></p>
+  <div class="stage" id="stage" aria-live="polite"></div>
+  <p class="fitnote" style="margin-top:28px;font-size:13px;color:var(--mute);max-width:70ch">This is a guide. A quick call lets us see the sun, wind, equipment and how you swim, and we encourage it. Sizing follows Sunlover's Melbourne chart, using each model's cool-weather output, which is what it delivers on a cold morning.</p>
+</section>
+
+
+<section class="s-feat">
+  <div class="sec-h"><span class="micro">02 Every iX</span><h2>Built in, <span class="dim">not added on.</span></h2></div>
+  <div class="two"><div class="l"></div><div class="r">
+    <div class="item"><h3>Inverter efficiency</h3><p>The compressor adjusts its output instead of switching on and off. Sunlover rate it about 30% more efficient than a standard on/off unit.</p></div>
+    <div class="item"><h3>Runs on your solar</h3><p>PV Ready modes use surplus solar, or pre-heat the pool on a sunny day. Sunlover quote up to 40% lower running costs.</p></div>
+    <div class="item"><h3>Control from your phone</h3><p>WiFi as standard, and a 3.5 inch touch screen for temperature and schedules.</p></div>
+    <div class="item"><h3>Built to last outdoors</h3><p>UV-resistant finish, a 5 year compressor warranty and 25 years on the heat exchanger.</p></div>
+  </div></div>
+</section>
+<section class="s-pv">
+  <div class="sec-h"><span class="micro">03 PV Ready</span><h2>Heat the pool <span class="dim">with your own sun.</span></h2></div>
+  <div class="steps">
+    <div><span class="micro">Morning</span><div class="n">01</div><h3>Sun comes up</h3><p>It picks up surplus solar instead of sending it to the grid.</p></div>
+    <div><span class="micro">Midday</span><div class="n">02</div><h3>Rapid Heat</h3><p>It warms the pool quickly with that free power.</p></div>
+    <div><span class="micro">Afternoon</span><div class="n">03</div><h3>Heat stored</h3><p>It pre-heats so the pool stays warm when cloud rolls in.</p></div>
+    <div><span class="micro">Evening</span><div class="n">04</div><h3>Back to normal</h3><p>At your set temperature it returns to normal running.</p></div>
+  </div>
+</section>
+<section id="enquire" class="s-enq">
+  <div class="enq"><span class="micro">Next</span><div class="h"><h2>Talk to us.</h2><div class="tel">[phone number]</div><p>A conversation is the quickest way to the right unit. We check your pool, power and site, then recommend. Prefer to write? Leave your details.</p>
+      <form id="f">
+        <label class="f"><span>Name</span><input id="n" autocomplete="name" placeholder="Your name"></label>
+        <label class="f"><span>Mobile</span><input id="m" type="tel" autocomplete="tel" placeholder="04"></label>
+        <label class="f"><span>Email</span><input id="e" type="email" autocomplete="email" placeholder="you@email.com"></label>
+        <label class="f"><span>Postcode</span><input id="p" inputmode="numeric" autocomplete="postal-code" placeholder="3000"></label>
+        <details><summary>More about your pool (optional)</summary>
+          <div class="in"><label class="f"><span>What heats it now</span><input id="h" placeholder="Gas, electric, nothing"></label><label class="f"><span>Power at the equipment</span><input id="pw" placeholder="Single, three phase, not sure"></label></div></details>
+        <div class="full"><button class="btn sig" type="submit">Book my free assessment</button><div id="note">Preview only. Nothing is sent from here.</div></div>
+      </form></div></div>
+</section>
+<footer class="s-foot"><span>[Brand] by Heataire Services</span><span>South-east Melbourne and the Mornington Peninsula</span><span>38+ years in heating and hot water</span></footer>
+</div>
+<script>
+(function(){
+  var MODELS=[
+    {n:'iX9',d:'Small pools and plunge pools',h:9.4,c:6.6,p:'10 amp plug-in',t:false},
+    {n:'iX13',d:'Small to medium pools',h:12.8,c:9.1,p:'15 amp plug-in',t:false},
+    {n:'iX19',d:'The average family pool',h:18.9,c:12.5,p:'Hardwired, own circuit',t:false},
+    {n:'iX24',d:'Larger pools, longer seasons',h:24.6,c:18.6,p:'Hardwired, own circuit',t:false},
+    {n:'iX28T',d:'Large pools, three phase',h:28.9,c:21.4,p:'Three phase, hardwired',t:true},
+    {n:'iX28',d:'Large pools, single phase',h:28.0,c:21.7,p:'Hardwired, own circuit',t:false},
+    {n:'iX36T',d:'Our biggest, all year swimming',h:36.0,c:27.0,p:'Three phase, hardwired',t:true}
+  ].sort(function(a,b){return a.c-b.c});
+  var KW={oct_mar:{b:.298,n:.668},sep_apr:{b:.438,n:.98},year:{b:.76,n:1.7}};
+  var SIZE={16:16,25:28,40:40,55:56,70:72};
+  var HELP={a:'Each model gets a plain verdict and one sentence on why. No chart to decode.',b:'Each bar is what the unit delivers on a cool day. The dashed red line is what your pool needs. Bars that reach the line will do the job.',c:'We make the call for them. One clear recommendation, with the next size either side for context. All models are tucked underneath.',d:'The simplest possible version. A tick, a tilde or a cross per model, and the numbers beside it.'};
+  var el={size:document.getElementById('size'),season:document.getElementById('season'),cover:document.getElementById('cover')};
+  var stage=document.getElementById('stage'),vh=document.getElementById('vh'),variant='a';try{var sv=localStorage.getItem('poolView');if(sv&&'abcd'.indexOf(sv)>-1)variant=sv}catch(e){}
+  function fit(r){return r<1?{k:'small',w:'Too small',cls:'bad'}:r<1.15?{k:'tight',w:'Just enough',cls:'mid'}:r<1.6?{k:'good',w:'Good fit',cls:'ok'}:{k:'over',w:'More than you need',cls:'mid'}}
+  function why(m,f,need){
+    var g=m.c.toFixed(1)+' kW on a cool day, your pool needs about '+need.toFixed(0)+'.';
+    if(f.k==='small')return 'Gives '+g+' It would struggle.';
+    if(f.k==='tight')return 'Gives '+g+' It works, with no headroom.';
+    if(f.k==='good')return 'Gives '+g+' Comfortable headroom.';
+    return 'Gives '+g+' More power than this pool calls for.';
+  }
+  function specs(m){return '<div class="spec"><b>'+m.h.toFixed(1)+' kW</b> heating<span>'+m.c.toFixed(1)+' kW cool weather</span><span>'+m.p+'</span></div>'}
+  function calc(){
+    var v={size:el.size.value,season:el.season.value,cover:el.cover.value};
+    ['size','season','cover'].forEach(function(k){el[k].classList.toggle('empty',!v[k])});
+    var need=null,best=null;
+    if(v.size&&v.season&&v.cover){need=KW[v.season][v.cover]*SIZE[v.size];var ok=MODELS.filter(function(m){return m.c>=need});var single=ok.filter(function(m){return !m.t});best=single[0]||ok[0]||null}
+    return {need:need,best:best};
+  }
+  function empty(){return '<p class="vd mid" style="max-width:30ch">Complete the sentence above and we will show what suits your pool.</p>'}
+  function nofit(){return '<p class="vd">Let us size this one.</p><p class="sp2" style="margin-top:10px;max-width:50ch">A pool this size for this season needs more than a single unit from our range, so we would work out the right setup with you on a call.</p>'}
+  function rowsA(r){
+    return MODELS.map(function(m,i){
+      var f=fit(m.c/r.need),b=m===r.best;
+      return '<div class="ra'+(b?' best':'')+'"><div>'+(b?'<span class="tag-best">Best fit</span>':'')+'<h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p></div><div><p class="vd '+(b?'ok':f.cls)+'">'+(b?'Suits your pool':f.w)+'</p><p class="sp2" style="margin-top:6px">'+why(m,f,r.need)+'</p></div>'+specs(m)+'</div>';
+    }).join('');
+  }
+  function rowsB(r){
+    var MAX=30,pct=Math.min(r.need/MAX*100,100);
+    var head='<div class="bh"><span></span><div class="needlab"><span style="left:'+pct+'%">Your pool needs '+r.need.toFixed(0)+' kW</span></div><span></span></div>';
+    return head+MODELS.map(function(m){
+      var f=fit(m.c/r.need),b=m===r.best;
+      return '<div class="bar2'+(b?' best':'')+'"><h3>'+m.n+'</h3><div class="track"><div class="fill'+(f.k==='small'?' short':'')+'" style="width:'+(m.c/MAX*100)+'%"></div><div class="need" style="left:'+pct+'%"></div></div><div class="r2"><b class="'+(f.k==='small'?'bad':'')+'">'+(b?'Best fit':f.w)+'</b><span>'+m.c.toFixed(1)+' kW cool weather</span></div></div>';
+    }).join('');
+  }
+  function cardC(m,r,label,cls){
+    var f=fit(m.c/r.need);
+    return '<div class="cardc '+cls+'"><span class="lbl">'+label+'</span><h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p><p class="'+(cls==='hero2'?'':'sp2')+'" style="font-size:'+(cls==='hero2'?'18px':'13px')+'">'+why(m,f,r.need)+'</p>'+specs(m)+'</div>';
+  }
+  function viewC(r){
+    var list=MODELS.filter(function(m){return !m.t||m===r.best});
+    var i=list.indexOf(r.best),prev=list[i-1],next=list[i+1];
+    var h='<div class="cc">'+(prev?cardC(prev,r,'A size down','small'):'<div></div>')+cardC(r.best,r,'We would put in','hero2')+(next?cardC(next,r,'A size up','small'):'<div></div>')+'</div>';
+    h+='<details class="more"><summary>See all seven models</summary>'+tableD(r,true)+'</details>';
+    return h;
+  }
+  function tableD(r,compact){
+    var rows=MODELS.map(function(m){
+      var f=fit(m.c/r.need),b=m===r.best;
+      var t=f.k==='small'?'<span class="tick n"><i>&times;</i>Too small</span>':(f.k==='tight'?'<span class="tick m"><i>~</i>Just enough</span>':'<span class="tick y"><i>&check;</i>'+(b?'Best fit':(f.k==='good'?'Good fit':'More than needed'))+'</span>');
+      return '<tr'+(b?' class="best"':'')+'><td class="n">'+m.n+'<small>'+m.d+'</small></td><td>'+t+'</td><td>'+m.c.toFixed(1)+' kW</td><td>'+m.h.toFixed(1)+' kW</td><td>'+m.p+'</td></tr>';
+    }).join('');
+    return '<div class="tw"><table><thead><tr><th>Model</th><th>Suits your pool?</th><th>Cool weather</th><th>Heating</th><th>Power</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  function viewD(r){
+    return '<p class="say-d">'+(r.best?'We would put in the <b style="color:var(--sig);font-weight:500">'+r.best.n+'</b>. Your pool needs about '+r.need.toFixed(0)+' kW on a cool day and it gives '+r.best.c.toFixed(1)+'.':'')+'</p>'+tableD(r,false);
+  }
+  function neutral(){
+    return MODELS.map(function(m){return '<div class="ra"><div><h3>'+m.n+'</h3><p class="sp2">'+m.d+'</p></div><div></div>'+specs(m)+'</div>'}).join('');
+  }
+  function render(){
+    vh.textContent=HELP[variant];
+    var r=calc();
+    if(r.need===null){stage.innerHTML=empty()+'<div style="margin-top:28px;border-top:1px solid var(--ink)">'+neutral()+'</div>';return}
+    if(!r.best){stage.innerHTML=nofit();return}
+    stage.innerHTML=variant==='a'?rowsA(r):variant==='b'?rowsB(r):variant==='c'?viewC(r):viewD(r);
+  }
+  ['size','season','cover'].forEach(function(k){el[k].addEventListener('change',render)});
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'),function(b){b.addEventListener('click',function(){variant=b.getAttribute('data-v');try{localStorage.setItem('poolView',variant)}catch(e){}Array.prototype.forEach.call(document.querySelectorAll('.tabs button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});render()})});
+  el.size.value='25';el.season.value='oct_mar';el.cover.value='b';
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'),function(x){x.setAttribute('aria-pressed',x.getAttribute('data-v')===variant?'true':'false')});
+  render();
+})();
+
+
+(function(){
+  var ov=document.getElementById('ov'),mo=document.getElementById('mo');
+  function set(o){ov.classList.toggle('open',o);mo.setAttribute('aria-expanded',o?'true':'false');document.body.style.overflow=o?'hidden':''}
+  mo.addEventListener('click',function(){set(true)});
+  document.getElementById('mc').addEventListener('click',function(){set(false)});
+  Array.prototype.forEach.call(ov.querySelectorAll('a'),function(a){a.addEventListener('click',function(){set(false)})});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')set(false)});
+  var f=document.getElementById('f');f.addEventListener('submit',function(e){e.preventDefault();document.getElementById('note').textContent='Preview only. On the live page this goes to your enquiry form.'});
+})();
+
+(function(){
+  var root=document.documentElement;
+  function setS(st){if(st==='swiss')root.removeAttribute('data-style');else root.setAttribute('data-style',st);
+    Array.prototype.forEach.call(document.querySelectorAll('.sw button'),function(x){x.setAttribute('aria-pressed',x.getAttribute('data-s')===st?'true':'false')})}
+  Array.prototype.forEach.call(document.querySelectorAll('.sw button'),function(b){b.addEventListener('click',function(){setS(b.getAttribute('data-s'))})});
+  setS('poster');
+})();
+</script>

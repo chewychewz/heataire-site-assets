@@ -1,0 +1,206 @@
+<title>Pool Heat Pumps Revised</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F7F5F0;--surface:#fff;--ink:#1B1B19;--muted:#6C6A62;--line:#DEDACF;--accent:#B8461F;--accent-ink:#fff;--good:#2F6B4A;--tight:#8A6A12;--over:#3C5F8E;--small:#A9452A;--ph:#ECE8DF;--font:'Schibsted Grotesk',system-ui,-apple-system,'Segoe UI',sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#161614;--surface:#1D1D1A;--ink:#EEEAE0;--muted:#A19E93;--line:#34332E;--accent:#E0693F;--accent-ink:#1B1B19;--good:#6DBB92;--tight:#D2B04C;--over:#8FB0DE;--small:#E6896A;--ph:#262622;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#161614;--surface:#1D1D1A;--ink:#EEEAE0;--muted:#A19E93;--line:#34332E;--accent:#E0693F;--accent-ink:#1B1B19;--good:#6DBB92;--tight:#D2B04C;--over:#8FB0DE;--small:#E6896A;--ph:#262622;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:16px;line-height:1.55;padding-inline:16px;padding-block:0 64px;margin:0}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3,p{margin:0}
+h1,h2{font-weight:500;letter-spacing:-.025em;text-wrap:balance}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px;flex-wrap:wrap}
+.logo{font-weight:600}
+nav{display:flex;gap:24px;font-size:14px;color:var(--muted);flex-wrap:wrap}
+nav .on{color:var(--ink)}
+.btn{display:inline-block;background:var(--ink);color:var(--bg);font:500 14px var(--font);padding:11px 18px;border-radius:4px;border:0;cursor:pointer;text-decoration:none;text-align:center}
+.btn.accent{background:var(--accent);color:var(--accent-ink)}
+.btn:focus-visible,.seg button:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.eyebrow{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.hero{padding-block:72px 40px;max-width:760px}
+.hero h1{font-size:clamp(36px,5.4vw,60px);line-height:1.04}
+.hero .lead{color:var(--muted);margin-top:20px;max-width:52ch;font-size:18px}
+.hero .row{display:flex;gap:20px;margin-top:28px;flex-wrap:wrap;align-items:center}
+.hero .row a.txt{color:var(--ink);font-size:14px}
+.ph{background:var(--ph);display:grid;place-items:center;color:var(--muted);font-size:13px;border-radius:4px}
+.photo{aspect-ratio:21/7;margin-top:8px}
+.stats{display:flex;gap:12px 40px;padding-block:18px;border-bottom:1px solid var(--line);flex-wrap:wrap;color:var(--muted);font-size:14px}
+.stats b{color:var(--ink);font-weight:500;margin-right:6px}
+section{padding-block:72px 0}
+h2{font-size:30px;line-height:1.15}
+.sub{color:var(--muted);margin-top:10px;max-width:60ch}
+.finder{margin-top:32px;border-top:1px solid var(--ink)}
+.qs{display:grid;grid-template-columns:minmax(0,1.9fr) minmax(0,1.2fr) minmax(0,.8fr);gap:24px 28px;padding-block:24px}
+.q .l{display:block;font-size:13px;color:var(--muted);margin-bottom:10px}
+.seg{display:flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.seg button{flex:1;font:500 14px var(--font);color:var(--ink);background:transparent;border:0;border-right:1px solid var(--line);padding:11px 8px;cursor:pointer;white-space:nowrap}
+.seg button:last-child{border-right:0}
+.seg button:hover{background:var(--bg)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.hint{font-size:12px;color:var(--muted);margin-top:8px}
+.result{border-top:1px solid var(--line);padding-block:24px;display:flex;justify-content:space-between;gap:24px;align-items:center;flex-wrap:wrap}
+.result .t{min-width:0;flex:1 1 360px}
+.result h3{font-size:28px;font-weight:500;letter-spacing:-.02em;margin-top:2px}
+.result p{color:var(--muted);margin-top:6px;max-width:60ch}
+.fine{font-size:13px;color:var(--muted);max-width:80ch;padding-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 24px;margin-top:40px}
+.card{display:flex;flex-direction:column;min-width:0}
+.card .pic{aspect-ratio:16/9;border-radius:4px;background:var(--ph);display:grid;place-items:center;color:var(--muted);font-size:13px}
+.tags{display:flex;gap:10px;min-height:20px;margin:14px 0 6px;font-size:12px;font-weight:500;align-items:center}
+.tag.best{color:var(--accent)}
+.tag.good{color:var(--good)}.tag.tight{color:var(--tight)}.tag.over{color:var(--over)}.tag.small{color:var(--small)}
+.card.best .pic{outline:2px solid var(--accent);outline-offset:3px}
+.card h3{font-size:20px;font-weight:500;letter-spacing:-.01em}
+.card .d{color:var(--muted);font-size:14px;margin-top:2px}
+dl{margin:14px 0 0;border-top:1px solid var(--line)}
+dl div{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+dt{color:var(--muted)}dd{margin:0;font-weight:500;text-align:right;font-variant-numeric:tabular-nums}
+.card .lnk{margin-top:14px;font-size:14px;color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 40px;margin-top:32px}
+.cols.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.cols>div{border-top:1px solid var(--line);padding-top:16px}
+.cols h3{font-size:16px;font-weight:500}
+.cols p{color:var(--muted);font-size:14px;margin-top:6px}
+.cols small{display:block;font-size:12px;color:var(--muted);margin-bottom:8px}
+.enq{display:grid;grid-template-columns:5fr 7fr;gap:48px;border-top:1px solid var(--ink);padding-top:32px}
+.enq form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{display:flex;flex-direction:column;gap:6px;min-width:0}
+.f span{font-size:13px;color:var(--muted)}
+input{font:400 16px var(--font);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:11px 12px;min-width:0;width:100%}
+details{grid-column:1/-1;color:var(--muted);font-size:14px}
+summary{cursor:pointer;color:var(--ink);font-weight:500}
+details .in{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px}
+.full{grid-column:1/-1}
+#note{font-size:13px;color:var(--muted);margin-top:12px}
+footer{margin-top:72px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:13px}
+@media (max-width:860px){.enq{grid-template-columns:1fr;gap:28px}.qs{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.cols,.cols.four{grid-template-columns:1fr 1fr}.hero{padding-block:44px 28px}}
+@media (max-width:520px){.cols,.cols.four,.enq form,details .in{grid-template-columns:1fr}}
+</style>
+<div class="wrap">
+<header><div class="logo">[Brand]</div>
+<nav aria-label="Main"><span>Hydronic heating</span><span>Hot water heat pumps</span><span class="on">Pool heat pumps</span><span>Split systems</span><span>Electrification plan</span></nav>
+<a class="btn" href="#enquire">Book an assessment</a></header>
+
+<div class="hero">
+  <div class="eyebrow">Pool heat pumps</div>
+  <h1>The right heat pump for your pool.</h1>
+  <p class="lead">Sized to your pool and your swimming season, installed and backed by us. Answer three questions, then talk it through with us.</p>
+  <div class="row"><a class="btn accent" href="#finder">Find my heat pump</a><a class="txt" href="#range">See the range</a></div>
+</div>
+<div class="ph photo" role="img" aria-label="Photo placeholder">Photo: an iX installed beside a finished pool</div>
+<div class="stats"><span><b>16 to 72 m2</b>pools covered</span><span><b>Inverter</b>efficient running</span><span><b>PV Ready</b>uses your solar</span><span><b>38+ years</b>heating and hot water</span></div>
+
+<section id="range">
+  <h2>Find the right size</h2>
+  <p class="sub">We install Sunlover Oasis iX inverter heat pumps. Tell us about your pool and we show the model that suits.</p>
+  <div class="finder" id="finder">
+    <div class="qs">
+      <div class="q"><span class="l" id="l-size">Pool size</span>
+        <div class="seg" role="group" aria-labelledby="l-size" data-g="size"><button type="button" data-v="16">to 16 m2</button><button type="button" data-v="25">16 to 25</button><button type="button" data-v="40">25 to 40</button><button type="button" data-v="55">40 to 55</button><button type="button" data-v="70">55+</button></div>
+        <div class="hint">Length x width. An 8 x 4 m pool is 32 m2.</div></div>
+      <div class="q"><span class="l" id="l-season">Swimming season</span>
+        <div class="seg" role="group" aria-labelledby="l-season" data-g="season"><button type="button" data-v="oct_mar">Oct to Mar</button><button type="button" data-v="sep_apr">Sep to Apr</button><button type="button" data-v="year">All year</button></div></div>
+      <div class="q"><span class="l" id="l-cover">Pool cover</span>
+        <div class="seg" role="group" aria-labelledby="l-cover" data-g="cover"><button type="button" data-v="b">Yes</button><button type="button" data-v="n">No</button></div></div>
+    </div>
+    <div class="result" aria-live="polite">
+      <div class="t"><div class="eyebrow" style="margin:0">Suggested</div><h3 id="rn">Pick your answers above</h3><p id="rt"></p></div>
+      <a class="btn accent" href="#enquire">Talk to us about my pool</a>
+    </div>
+    <p class="fine">This is a guide. A quick call lets us see the whole picture, from your pool and equipment to sun, wind and how you swim, and we encourage it. Sizing follows Sunlover's Melbourne chart using each unit's cool-weather rating.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section>
+  <h2>What every iX comes with</h2>
+  <div class="cols">
+    <div><h3>Inverter efficiency</h3><p>The compressor adjusts its output instead of switching on and off. Sunlover rate it about 30% more efficient than a standard on/off unit.</p></div>
+    <div><h3>Runs on your solar</h3><p>PV Ready modes use surplus solar, or pre-heat the pool on a sunny day. Sunlover quote up to 40% lower running costs.</p></div>
+    <div><h3>Rapid Heat</h3><p>Faster heat-up when you want the pool ready, then it settles back to efficient running.</p></div>
+    <div><h3>Control from your phone</h3><p>WiFi as standard, and a 3.5 inch touch screen for temperature and schedules.</p></div>
+    <div><h3>Lower impact refrigerant</h3><p>R32, which has a lower global warming potential than older refrigerants.</p></div>
+    <div><h3>Built to last outdoors</h3><p>UV-resistant finish, a 5 year compressor warranty and 25 years on the heat exchanger.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>How it uses your solar</h2>
+  <p class="sub">Pair the heat pump with your solar system and it heats the pool from power you would otherwise export for very little. Choose Normal, Eco or Temp Plus to suit how you swim.</p>
+  <div class="cols four">
+    <div><small>1</small><h3>Sun comes up</h3><p>It talks to a Smart Grid Ready inverter and picks up surplus power instead of sending it to the grid.</p></div>
+    <div><small>2</small><h3>Rapid Heat</h3><p>It switches to Rapid Heat and warms the pool quickly with that free power.</p></div>
+    <div><small>3</small><h3>Heat stored</h3><p>It pre-heats while the sun shines, so the pool stays warm when cloud rolls in.</p></div>
+    <div><small>4</small><h3>Back to normal</h3><p>At your set temperature it returns to normal running.</p></div>
+  </div>
+</section>
+
+<section id="enquire">
+  <div class="enq">
+    <div><h2>Book a free assessment</h2><p class="sub">Tell us where to reach you and we will check your pool, power and site, then recommend the right unit. Prefer to talk? Call us on [phone number]. It is the quickest way to get the full picture.</p></div>
+    <form id="f">
+      <label class="f"><span>Name</span><input id="n" autocomplete="name"></label>
+      <label class="f"><span>Mobile</span><input id="m" type="tel" autocomplete="tel"></label>
+      <label class="f"><span>Email</span><input id="e" type="email" autocomplete="email"></label>
+      <label class="f"><span>Postcode</span><input id="p" inputmode="numeric" autocomplete="postal-code"></label>
+      <details><summary>Add more about your pool (optional)</summary>
+        <div class="in"><label class="f"><span>What heats the pool now?</span><input id="h" placeholder="Gas, electric, nothing yet"></label><label class="f"><span>Power at the pool equipment</span><input id="pw" placeholder="Single phase, three phase, not sure"></label></div></details>
+      <div class="full"><button class="btn accent" type="submit">Book my assessment</button><div id="note">Preview only. Nothing is sent from here.</div></div>
+    </form>
+  </div>
+</section>
+<footer><span>[Brand] by Heataire Services. South-east Melbourne and the Mornington Peninsula.</span><span>38+ years in heating and hot water.</span></footer>
+</div>
+
+<script>
+(function(){
+  var MODELS=[
+    {n:'Oasis iX9',d:'Inverter heat pump for small pools and plunge pools.',h:9.4,c:6.6,p:'10 amp plug-in',t:false},
+    {n:'Oasis iX13',d:'Inverter heat pump for small to medium pools.',h:12.8,c:9.1,p:'15 amp plug-in',t:false},
+    {n:'Oasis iX19',d:'Inverter heat pump for the average family pool.',h:18.9,c:12.5,p:'Hardwired, own circuit',t:false},
+    {n:'Oasis iX24',d:'Inverter heat pump for larger pools and longer swimming seasons.',h:24.6,c:18.6,p:'Hardwired, own circuit',t:false},
+    {n:'Oasis iX28T',d:'Three phase inverter heat pump for large pools.',h:28.9,c:21.4,p:'Three phase, hardwired',t:true},
+    {n:'Oasis iX28',d:'Single phase inverter heat pump for large pools.',h:28.0,c:21.7,p:'Hardwired, own circuit',t:false},
+    {n:'Oasis iX36T',d:'Our biggest inverter heat pump, for large pools and all year swimming.',h:36.0,c:27.0,p:'Three phase, hardwired',t:true}
+  ].sort(function(a,b){return a.c-b.c});
+  var KW={oct_mar:{b:.298,n:.668},sep_apr:{b:.438,n:.98},year:{b:.76,n:1.7}};
+  var SIZE={16:16,25:28,40:40,55:56,70:72};
+  var sel={size:null,season:null,cover:null};
+  var grid=document.getElementById('grid');
+  var PIC='<span>Product photo</span>';
+  function fit(r){return r<1?['Too small','small']:r<1.15?['Just enough','tight']:r<1.6?['Good fit','good']:['Larger than needed','over']}
+  function render(){
+    var need=null,best=null;
+    if(sel.size&&sel.season&&sel.cover){
+      need=KW[sel.season][sel.cover]*SIZE[sel.size];
+      var ok=MODELS.filter(function(m){return m.c>=need});
+      var single=ok.filter(function(m){return !m.t});
+      best=single[0]||ok[0]||null;
+    }
+    grid.innerHTML=MODELS.map(function(m){
+      var tags='';
+      if(need!==null){var f=fit(m.c/need);tags=(m===best?'<span class="tag best">Best fit</span>':'')+'<span class="tag '+f[1]+'">'+f[0]+'</span>'}
+      return '<article class="card'+(m===best?' best':'')+'"><div class="pic">'+PIC+'</div><div class="tags">'+tags+'</div><h3>'+m.n+'</h3><p class="d">'+m.d+'</p><dl><div><dt>Heating output</dt><dd>'+m.h.toFixed(1)+' kW</dd></div><div><dt>Cool-weather output</dt><dd>'+m.c.toFixed(1)+' kW</dd></div><div><dt>Power</dt><dd>'+m.p+'</dd></div></dl><a class="lnk" href="#enquire">Talk to us about this one</a></article>';
+    }).join('');
+    var rn=document.getElementById('rn'),rt=document.getElementById('rt');
+    if(need===null){rn.textContent='Pick your answers above';rt.textContent='';return}
+    if(!best){rn.textContent='Let us size this one';rt.textContent='A pool this size for this season needs more than a single unit from our range, so let us work out the right setup with you.';return}
+    rn.textContent=best.n;rt.textContent='Suits your pool and season '+(sel.cover==='b'?'with a cover':'without a cover')+'. Power: '+best.p.toLowerCase()+'.';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('.seg'),function(seg){
+    var g=seg.getAttribute('data-g');
+    Array.prototype.forEach.call(seg.querySelectorAll('button'),function(b){
+      b.setAttribute('aria-pressed','false');
+      b.addEventListener('click',function(){
+        var was=b.getAttribute('aria-pressed')==='true';
+        Array.prototype.forEach.call(seg.querySelectorAll('button'),function(x){x.setAttribute('aria-pressed','false')});
+        if(was){sel[g]=null}else{b.setAttribute('aria-pressed','true');sel[g]=b.getAttribute('data-v')}
+        render();
+      });
+    });
+  });
+  document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();document.getElementById('note').textContent='Preview only. On the live page this goes to your enquiry form.'});
+  render();
+})();
+</script>
